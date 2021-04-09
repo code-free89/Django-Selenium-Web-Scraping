@@ -20,6 +20,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os
+import os.path
+from os import path
 
 ################################################  Scraping  section  ##################################################
 # -- open browser
@@ -32,8 +34,11 @@ def scraper_init(request):
 def scraper_toys(request):
 
     # headers in csv file
-
-    os.remove("toys.csv")
+    try :
+        if path.exists("toys.csv") :
+            os.remove("toys.csv")
+    finally :
+        c= 0
     headers = ['name', 'ref', 'price', 'special price', 'home delivery in stock', 'description', 'Walsall quantity', 'Walsall in stock text', 'Wolverhampton quantity', 'Wolverhampton in stock text', 'Oldbury quantity', 'Oldbury in stock text', 'Castlevale quantity', 'Castlevale in stock text', 'image1', 'image2', 'image3', 'image4', 'image5']
     with open('toys.csv', 'a', newline='') as f_object:
         writer_object = csv.writer(f_object)
@@ -90,12 +95,6 @@ def scraper_toys(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        try:
-            WebDriverWait(browser, 10).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "js-pickup-in-store-button"))
-            )
-        finally:
-            c = 0
         name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
@@ -215,7 +214,11 @@ def scraper_baby(request):
 
     # headers in csv file
 
-    os.remove("baby.csv")
+    try :
+        if path.exists("baby.csv") :
+            os.remove("baby.csv")
+    finally :
+        c= 0
     headers = ['name', 'ref', 'price', 'special price', 'home delivery in stock', 'description', 'Walsall quantity', 'Walsall in stock text', 'Wolverhampton quantity', 'Wolverhampton in stock text', 'Oldbury quantity', 'Oldbury in stock text', 'Castlevale quantity', 'Castlevale in stock text', 'image1', 'image2', 'image3', 'image4', 'image5']
     with open('baby.csv', 'a', newline='') as f_object:
         writer_object = csv.writer(f_object)
@@ -273,12 +276,6 @@ def scraper_baby(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        try:
-            WebDriverWait(browser, 10).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "js-pickup-in-store-button"))
-            )
-        finally:
-            c = 0
         name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
@@ -398,7 +395,11 @@ def scraper_outdoor(request):
 
     # headers in csv file
 
-    os.remove("outdoor.csv")
+    try :
+        if path.exists("outdoor.csv") :
+            os.remove("outdoor.csv")
+    finally :
+        c= 0
     headers = ['name', 'ref', 'price', 'special price', 'home delivery in stock', 'description', 'Walsall quantity', 'Walsall in stock text', 'Wolverhampton quantity', 'Wolverhampton in stock text', 'Oldbury quantity', 'Oldbury in stock text', 'Castlevale quantity', 'Castlevale in stock text', 'image1', 'image2', 'image3', 'image4', 'image5']
     with open('outdoor.csv', 'a', newline='') as f_object:
         writer_object = csv.writer(f_object)
@@ -456,12 +457,6 @@ def scraper_outdoor(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        try:
-            WebDriverWait(browser, 10).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "js-pickup-in-store-button"))
-            )
-        finally:
-            c = 0
         name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
