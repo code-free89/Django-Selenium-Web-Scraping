@@ -99,7 +99,7 @@ def scraper_toys(request):
         while not name:
             try:
                 name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
-            except NoSuchElementException:
+            except (NoSuchElementException, NameError) as e:
                 time.sleep(2)
         name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
@@ -123,8 +123,10 @@ def scraper_toys(request):
         else :
             in_stock = ""
         description = ""
-        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        if len(description_lis) :
+        description_lis = None
+        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul')
+        if description_lis != None :
+            description_lis = description_lis.find_elements_by_class_name("font-regular")
             for description_li in description_lis :
                 description = description + description_li.text.strip() + "<br/>"
         else :
@@ -146,7 +148,16 @@ def scraper_toys(request):
                 )
             finally:
                 c = 0
-            Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+            Walsall_text = None
+            while not Walsall_text:
+                try:
+                    Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+                except IndexError:
+                    browser.get(product_link)
+                    sleep(4)
+                    change_store_button = browser.find_elements_by_class_name("js-pickup-in-store-button")
+                    ActionChains(browser).move_to_element(change_store_button[0]).click(change_store_button[0]).perform()
+                    sleep(4)
             if "Out of stock" in Walsall_text :
                 Walsall_stock = "Out of stock"
                 Walsall_quantity = ""
@@ -291,7 +302,7 @@ def scraper_baby(request):
         while not name:
             try:
                 name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
-            except NoSuchElementException:
+            except (NoSuchElementException, NameError) as e:
                 time.sleep(2)
         name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
@@ -315,8 +326,10 @@ def scraper_baby(request):
         else :
             in_stock = ""
         description = ""
-        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        if len(description_lis) :
+        description_lis = None
+        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul')
+        if description_lis != None :
+            description_lis = description_lis.find_elements_by_class_name("font-regular")            
             for description_li in description_lis :
                 description = description + description_li.text.strip() + "<br/>"
         else :
@@ -338,7 +351,16 @@ def scraper_baby(request):
                 )
             finally:
                 c = 0
-            Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+            Walsall_text = None
+            while not Walsall_text:
+                try:
+                    Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+                except IndexError:
+                    browser.get(product_link)
+                    sleep(4)
+                    change_store_button = browser.find_elements_by_class_name("js-pickup-in-store-button")
+                    ActionChains(browser).move_to_element(change_store_button[0]).click(change_store_button[0]).perform()
+                    sleep(4)
             if "Out of stock" in Walsall_text :
                 Walsall_stock = "Out of stock"
                 Walsall_quantity = ""
@@ -483,7 +505,7 @@ def scraper_outdoor(request):
         while not name:
             try:
                 name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
-            except NoSuchElementException:
+            except (NoSuchElementException, NameError) as e:
                 time.sleep(2)
         name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
@@ -507,8 +529,10 @@ def scraper_outdoor(request):
         else :
             in_stock = ""
         description = ""
-        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        if len(description_lis) :
+        description_lis = None
+        description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul')
+        if description_lis != None :
+            description_lis = description_lis.find_elements_by_class_name("font-regular")
             for description_li in description_lis :
                 description = description + description_li.text.strip() + "<br/>"
         else :
@@ -530,7 +554,17 @@ def scraper_outdoor(request):
                 )
             finally:
                 c = 0
-            Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+            Walsall_text = None
+            while not Walsall_text:
+                try:
+                    Walsall_text = browser.find_elements_by_class_name("resultStock")[57].text.strip()
+                except IndexError:
+                    browser.get(product_link)
+                    sleep(4)
+                    change_store_button = browser.find_elements_by_class_name("js-pickup-in-store-button")
+                    ActionChains(browser).move_to_element(change_store_button[0]).click(change_store_button[0]).perform()
+                    sleep(4)
+            Walsall_text = Walsall_text[57].text.strip()
             if "Out of stock" in Walsall_text :
                 Walsall_stock = "Out of stock"
                 Walsall_quantity = ""
