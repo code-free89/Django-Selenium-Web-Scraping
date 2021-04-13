@@ -95,7 +95,13 @@ def scraper_toys(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
+        name = None
+        while not name:
+            try:
+                name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
+            except NoSuchElementException:
+                time.sleep(2)
+        name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
         for i in range(5) :
@@ -118,8 +124,13 @@ def scraper_toys(request):
             in_stock = ""
         description = ""
         description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        for description_li in description_lis :
-            description = description + description_li.text.strip() + "<br/>"
+        if len(description_lis) :
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
+        else :
+            description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]').findElements(By.tagName('p'))
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
         # category = browser.find_elements_by_class_name(u"breadcrumb-text")[1].text
         
         # Open Store Dialog
@@ -276,7 +287,13 @@ def scraper_baby(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
+        name = None
+        while not name:
+            try:
+                name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
+            except NoSuchElementException:
+                time.sleep(2)
+        name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
         for i in range(5) :
@@ -299,8 +316,13 @@ def scraper_baby(request):
             in_stock = ""
         description = ""
         description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        for description_li in description_lis :
-            description = description + description_li.text.strip() + "<br/>"
+        if len(description_lis) :
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
+        else :
+            description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]').findElements(By.tagName('p'))
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
         # category = browser.find_elements_by_class_name(u"breadcrumb-text")[1].text
         
         # Open Store Dialog
@@ -457,7 +479,13 @@ def scraper_outdoor(request):
     for product_link in product_links :
         browser.get(product_link)
         sleep(4)
-        name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1").text.strip()
+        name = None
+        while not name:
+            try:
+                name = browser.find_element_by_xpath("/html/body/div[7]/section/div/div/div[2]/div[1]/h1")
+            except NoSuchElementException:
+                time.sleep(2)
+        name = name.text.strip()
         images = browser.find_elements_by_xpath("/html/body/div[7]/section/div/div/div[1]/div/div[1]/div/div[1]/div//img[@class='responsive-image']")
         image_src = ['', '', '', '', '']
         for i in range(5) :
@@ -480,8 +508,13 @@ def scraper_outdoor(request):
             in_stock = ""
         description = ""
         description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]/div/div[1]/ul').find_elements_by_class_name("font-regular")
-        for description_li in description_lis :
-            description = description + description_li.text.strip() + "<br/>"
+        if len(description_lis) :
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
+        else :
+            description_lis = browser.find_element_by_xpath(u'//*[@id="profile"]').findElements(By.tagName('p'))
+            for description_li in description_lis :
+                description = description + description_li.text.strip() + "<br/>"
         # category = browser.find_elements_by_class_name(u"breadcrumb-text")[1].text
         
         # Open Store Dialog
